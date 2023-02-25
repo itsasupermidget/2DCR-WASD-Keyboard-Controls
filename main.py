@@ -1,5 +1,5 @@
 #2D Console Rendering API v2 for Python 3+ and JavaScript by Jordan Greydanus (Kyranok)
-print("Powered by 2DCR _Kyranok")
+print("Powered by 2DCR")
 print("2D Console Rendering API for Python 3+ and JavaScript v2")
 print(" ")
 #<--Beginning of 2DCR's code, don't change anything until later-->
@@ -148,30 +148,17 @@ def checkInRegion(check, minX, minY, maxX, maxY):
         found = False
     return found  
 #<--End of 2DCR's code-->
-def width(): #WORLDX TILES PLOT HORIZONTALLY
-  WORLDX = 16
-  try:
-    WORLDX = int(input("Type the width of the world in 'numerals' and press Enter: for ex'16': ")) #Coords0-(WORLDX-1)
-  except ValueError: #ERROR CATCH!
-    print("Only positive integers are accepted in this field, WORLDX remains unchanged. WORLDX = "+str(WORLDX))
-def height(): #WORLDY TILES PLOT VERTICALLY
-  WORLDY = 9
-  try:
-    WORLDY = int(input("Type the height of the world in 'numerals' and press Enter: for ex'9': "))  #Coords0-(WORLDY-1)
-  except ValueError: #ERROR CATCH!
-    print("Only positive integers are accepted in this field, WORLDY remains unchanged. WORLDY = "+str(WORLDY))
-def demo():
-  print("2D Console Rendering begins with a square or rectangular board.")
-  width()
-  height()
-  EMPTYICON = input("Enter the 'unit tile character set' you wish to represent each empty space on the board: for ex'01':")  #The character(s) displayed in place of a defined UTCS
+WORLDX = 16
+WORLDY = 9
+EMPTYICON = " _"
+keys = ["w","a","s","d"]
+dirX = [0,-1,0,1]
+dirY = [-1,0,1,0]
+player = point(4,4," P")
+def controller(answer):
+  if answer in keys:
+    kI = keys.index(answer)
+    player.move(dirX[kI], dirY[kI])
+while True:
+  controller(input("Type one of the following UTCS and press the Enter key on your keyboard: "+", ".join(keys)))
   render()
-  print("Now we can begin world editing.")
-  PICON = input("Enter your UTCS you wish to be displayed as: for ex':)':")
-  player = point(round(WORLDX/2),round(WORLDY/2),PICON)
-  print("You're in the center ("+str(player.x)+","+str(player.y)+") of our screen.")
-  render()
-  next = input("Enter 'move' or 'edit' or 'r' to reset or press any key to idle: ")
-  if (next == "r"):
-    demo()
-demo()
